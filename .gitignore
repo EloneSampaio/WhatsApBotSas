@@ -1,0 +1,12 @@
+node_modules
+build
+npm-debug.log
+.nyc
+.env
+.DS_Store
+.wwebjs_auth
+tokens
+index back.js
+index2.js
+indexwconectback.js
+chatbotwhatsapp-f775d-firebase-adminsdk-vv2aa-4bb623135c.json
