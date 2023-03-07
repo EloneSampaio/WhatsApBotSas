@@ -6,7 +6,7 @@ export const stageFour = {
     exec({ from, message, client }) {
        
        
-        if (message.length > 2) {
+     
             let msg = '🚨 Obrigado*  🚨\n\n';
             clienteModel.updateCliente(from,false,message)
             globalDescricao= message
@@ -18,8 +18,5 @@ export const stageFour = {
 
 
             return msg;
-        }
-
-        return '❌ *Texto muito curto.* \n⚠️ ```PORFAVOR ESCREVA UMA DESCRIÇÃO COM NO MINIMO 20 CARACTERES``` ⚠️';
     },
 };

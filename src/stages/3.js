@@ -31,6 +31,6 @@ export const stageThree = {
       return '🔃 Encaminhando você para o menu. \n⏳ Por favor digite *LUAI* para continuar.';
     }
 
-    return '❌ *Digite uma opção válida, por favor.* \n⚠️ ```APENAS UMA OPÇÃO POR VEZ``` ⚠️';
+   
   },
 };

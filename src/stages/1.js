@@ -5,7 +5,7 @@ import serviceModel from '../database/controllers/servicos.js';
 
 export const stageOne = {
   exec({ from, message, client }) {
-    if (message.length>2) {
+   
 
       let msg = {
         buttonText: process.env.SERVICE_DESCRIPTION,
@@ -58,6 +58,6 @@ export const stageOne = {
       return msg;
     }
 
-    return '❌ *Digite um nome/texto válido, por favor.* \n⚠️ ```No mínimo 3 caractares``` ⚠️';
-  },
+   
+
 };

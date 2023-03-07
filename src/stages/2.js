@@ -67,6 +67,5 @@ export const stageTwo = {
     }
 
   
-    return '❌ *Selecione uma opção válida no menu, por favor.* \n⚠️ ```APENAS UMA OPÇÃO POR VEZ``` ⚠️';
   },
 };
