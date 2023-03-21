@@ -1,22 +1,18 @@
-import { menu } from '../menu.js';
+
 import { storage } from '../storage.js';
-import clienteModel from '../database/controllers/cliente.js';
-
+import atendimentoModel from '../database/controllers/atendimento.js';
+import stageModel from '../database/controllers/stage.js';
 export const stageFour = {
-    exec({ from, message, client }) {
+  async  exec({ from, message, client }) {
+          storage[from].stage = 5;
        
-       
+          let messages = await stageModel.findById(storage[from].stage)
      
-            let msg = '🚨 Obrigado*  🚨\n\n';
-            clienteModel.updateCliente(from,false,message)
-            globalDescricao= message
-            msg += "Sua mensagem foi registrada" + "\n\n"
-            msg += "Sua solicitação é urgente?";
-            msg += '\n-----------------------------------\n1️⃣ - ```Urgente``` \n0️⃣ - ```Posso esperar```\n\n';
-
-            storage[from].stage = 5;
-
-
+            let msg = messages['key1'].replace(/\\n/g, "\n");
+            atendimentoModel.updateAtendimento(from,false,message)
+            msg +=  messages['key2'].replace(/\\n/g, "\n");
+            msg += messages['key3'].replace(/\\n/g, "\n");
+            msg += messages['key4'].replace(/\\n/g, "\n");
             return msg;
     },
 };

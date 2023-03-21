@@ -1,15 +1,18 @@
-import { create, Whatsapp } from '@wppconnect-team/wppconnect';
+import { create} from '@wppconnect-team/wppconnect';
 import { stages, getStage,getType } from './stages.js';
 import * as dotenv from 'dotenv'
-import { storage } from './storage.js';
+
 
 dotenv.config()
+
 global.globalUser = "";
 global.globalDescricao = "";
 global.bolCurso = false;
 global.botTriggerMaster = false
 create({
     session: 'vendas',
+    whatsappVersion: '2.2307.10',
+    deviceName: 'Celular Sam',
     catchQR: (base64Qrimg, asciiQR, attempts, urlCode) => {
         console.log('Number of attempts to read the qrcode: ', attempts);
         console.log('Terminal qrcode: ', asciiQR);
@@ -30,46 +33,44 @@ create({
     .catch((error) => console.log(error));
 
 
- function start(client) {
+  function start(client) {
   let botTrigger = false;
      /*  client.onMessage((message) => {
         if(message.body ==='Vi isto no Facebook...' || message.body === 'Vi isto no Instagram...'){ 
           botTrigger = true
         } 
       }); */
-        client.onMessage((message) => {
+      client.onMessage(async(message) => {
           
           if (!message.isGroupMsg ) {
               const currentStage = getStage({ from: message.from });
-             const currentType =getType({from: message.from});
+             const currentType =  getType({ from: message.from });
              // const currentItems = getItems({ from: message.from });
               console.log(currentType)
-             // console.log(currentType)
-             if(message.type === "list_response"){
-            // console.log(message.listResponse)
-            // console.log(message.listResponse.singleSelectReply.selectedRowId)
-             }
-              const messageResponse = stages[currentStage].stage.exec({
+             
+              console.log(currentStage)
+          
+              const messageResponse = await stages[currentStage].stage.exec({
                 from: message.from,
                 message: message.body,
                 client,
               });
       
-              if (messageResponse && currentType===1) {
-                client.sendText(message.from, messageResponse).then(() => {
+              if (messageResponse) {
+               await client.sendText(message.from, messageResponse).then(() => {
                   console.log('Menu simples.');
                 }).catch(error => console.error('Error when sending message', error));
               }
 
 
-              if (messageResponse && currentType===2) {
+            /*   if (messageResponse && currentType==2) {
               //console.log(message.listResponse.singleSelectReply.selectedRowId)
              
                console.log('menu tipo lista')
-                client.sendListMessage(message.from, messageResponse).then(() => {
+               await client.sendListMessage(message.from, messageResponse).then(() => {
                   console.log('Message sent.');
                 }).catch(error => console.error('Error when sending message', error));
-              }  
+              }  */ 
           }
         
         

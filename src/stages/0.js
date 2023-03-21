@@ -1,22 +1,31 @@
 import { storage } from '../storage.js';
-import clienteModel from '../database/controllers/cliente.js';
-
+import atendimentoModel from '../database/controllers/atendimento.js';
+import stageModel from '../database/controllers/stage.js';
 
 export const initialStage = {
-  exec({ from }) {
+ async exec({ from }) {
     let userExist = '';
-    
-    clienteModel.createCliente(from).then(val => userExist = val );
+    let config = null;
    
     let msg = '';
+
+    await atendimentoModel.createAtendimento(from).then(val => userExist = val );
+    await atendimentoModel.updateAtendimentoByStep(from,storage[from].stage,0).then(val => console.log(''));
+    config = await stageModel.findById(0);
+    //console.log(config)
+    //config = config.replace(/\\n/g, "\n");
+
+ 
      
       if(userExist==='exist'){
-        msg =  process.env.WELCOME + process.env.WELCOME_CUSTOMER2;
-        storage[from].stage = 2;
+        msg +=  (config['key1']+ ' ').replace(/\\n/g, "\n") + (config['key2']+ ' ').replace(/\\n/g, "\n");
+        storage[from].stage = 1;
+       
       }else{
-      msg =  process.env.WELCOME + process.env.YOUR_NAME;
+        msg +=  (config['key1']+ ' ').replace(/\\n/g, "\n") + (config['key2']+ ' ').replace(/\\n/g, "\n");
+
       storage[from].stage = 1;
-      storage[from].type = 2;
+    
       }
     return msg
   },

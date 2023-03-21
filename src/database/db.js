@@ -6,8 +6,8 @@ dotenv.config()
 mongoose.Promise = global.Promise;
 
 //mongoose.connect(process.env.MONGO_URI)
-mongoose.connect( 'mongodb+srv://luaitech:H21pvO5truuA7HNT@cluster0.wmfea0l.mongodb.net/whatsappbot?retryWrites=true&w=majority')
-  .then(() => console.log('Connected!'));
+mongoose.connect(`mongodb+srv://${process.env.NOSQL_DB_USER}:${process.env.NOSQL_DB_PASS}@${process.env.NOSQL_DB_HOST}/${process.env.NOSQL_DB_NAME}?`)
+.then(() => console.log('Connected!'));
 
 mongoose.Promise = global.Promise;
 
